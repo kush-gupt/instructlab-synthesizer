@@ -49,14 +49,14 @@ def get_instruction_response_pairs(context):
     '''Prompt the synthesizer to generate instruction-response pairs based on the given context'''
     prompt = f'<s> <CON> {context} </CON>\n\n'
 
-    # Generate predictions using the Llama model
+    # Generate predictions using the instruction-synthesizer model
     outputs = llm(prompt, max_tokens=400, echo=False, stop=['</s>'])
     
     # Extract the generated text from the response
     pred = outputs['choices'][0]['text']
     return parse_pred(pred)
 
-
+# get pairs and format them into yaml
 def obtain_pairs(context):
     instruction_response_pairs = get_instruction_response_pairs(context)
     result = """
