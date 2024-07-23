@@ -1,5 +1,6 @@
 gradio==4.39.0
 gradio_client==1.1.1
 llama_cpp_python==0.2.82
-PyYAML==6.0.1
+ruamel.yaml==0.18.6
+ruamel.yaml.clib==0.2.8
 

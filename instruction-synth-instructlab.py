@@ -1,7 +1,8 @@
 import os as os
 import gradio as gr
 from llama_cpp import Llama
-import yaml
+from ruamel.yaml import YAML
+from ruamel.yaml.scalarstring import LiteralScalarString
 
 # Citing for reference: 
 #  - Instruction Synthesizer model, paper and demo: https://huggingface.co/instruction-pretrain/instruction-synthesizer
@@ -56,18 +57,14 @@ def get_instruction_response_pairs(context):
     pred = outputs['choices'][0]['text']
     return parse_pred(pred)
 
-# get pairs and format them into yaml
+# Get pairs and format them into yaml with indentation
 def obtain_pairs(context):
     instruction_response_pairs = get_instruction_response_pairs(context)
-    result = """
-    version: 2
-    task_description: [insert based on your context]
-    created_by: [insert name]
-    seed_examples:\n"""
+    result = """version: 2\ntask_description: [insert based on your context]\ncreated_by: [insert name]\nseed_examples:\n"""
     for index, pair in enumerate(instruction_response_pairs):
-        question = f'{pair["Q"]}'
-        answer = f'{pair["A"]}'
-        result += yaml.dump([{"question": question, "answer": answer}], default_flow_style=False)
+        question = LiteralScalarString(f'"{pair["Q"]}"')
+        answer = LiteralScalarString(f'"{pair["A"]}"')
+        result += f"  - question: {question}\n    answer: {answer}\n"
     return result
 
 # Define the Gradio interface
