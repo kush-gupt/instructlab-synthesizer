@@ -57,15 +57,6 @@ def get_instruction_response_pairs(context):
     pred = outputs['choices'][0]['text']
     return parse_pred(pred)
 
-# Create a custom Dumper for literal scalar strings with indentation
-# class IndentDumper(YAML):
-#     def represent_literal_scalar(self, *args, **kwargs):
-#         # Override the default representer to use literal scalar with indentation
-#         node = super().represent_literal_scalar(*args, **kwargs)
-#         if isinstance(node.value, str):
-#             return self.represent_scalar('tag:yaml.org,2002:str', node.value, style='|')
-#         return node
-
 # Get pairs and format them into yaml with indentation
 def obtain_pairs(context):
     instruction_response_pairs = get_instruction_response_pairs(context)
