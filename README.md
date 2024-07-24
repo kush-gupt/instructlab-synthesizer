@@ -5,5 +5,7 @@ By setting your MODEL_PATH in a .env file to pickup some [GGUF](https://huggingf
 
 Install from the requirements file, kick off the run script and post issues into the repo!
 
-https://github.com/user-attachments/assets/1c2aa8b9-4021-4c6f-8fe3-09c07b1aac69
+To be converted into a Podman AI recipe and leverage their model serving service at some point :) 
+
+https://github.com/user-attachments/assets/6bb871e0-9d85-45f1-b0c0-4bb2ec03285a
 
