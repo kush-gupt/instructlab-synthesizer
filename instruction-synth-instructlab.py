@@ -65,15 +65,20 @@ def obtain_pairs(context):
         question = LiteralScalarString(f'"{pair["Q"]}"')
         answer = LiteralScalarString(f'"{pair["A"]}"')
         result += f"  - question: {question}\n    answer: {answer}\n"
-    return result
+    file_path = "taxonomy.yaml"
+    result += f"document:\n  repo: https://github.com/[insert rest of your fork]\n  commit: [insert commit]\n  patterns:\n    - [insert list of markdown files]"
+    with open(file_path, "w") as text_file:
+        text_file.write(result)
+    return [result, file_path]
 
 # Define the Gradio interface
 iface = gr.Interface(
     fn=obtain_pairs,
-    inputs="textbox",
-    outputs=gr.Textbox(
-        interactive=True
-    ),
+    inputs=gr.Textbox(interactive=True, label="Context Input"),
+    outputs=[
+        gr.Textbox(interactive=True, label="Taxonomy Output"),
+        gr.File(label="Download Taxonomy Output")
+    ],
     title="Instruction Synthesizer for InstructLab",
     description="Input a context and get llm generated instruction-response pairs in a (somewhat) taxonomy acceptable YAML format."
 )
